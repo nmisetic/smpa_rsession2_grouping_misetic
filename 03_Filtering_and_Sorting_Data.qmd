@@ -1,6 +1,10 @@
 ---
 title: "Intro to Data Analysis in R - Sorting and Filtering"
+<<<<<<< HEAD
 author: "Nikola Misetic"
+=======
+author: "Your Name"
+>>>>>>> 8fd44ce3c022221de2f49b01977ea95e3144a274
 date: "`r format(Sys.time(), '%B %d, %Y')`"
 format:
   html:
