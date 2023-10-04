@@ -57,7 +57,7 @@ glimpse(wv_winred_contribs)
 ## Answer questions
 
 **Q2** Which West Virginia city provided the largest number of contributions? How many?
-**A2** 
+**A2** Martinsburg, with 781.
 
 ```{r}
 wv_winred_contribs %>%
