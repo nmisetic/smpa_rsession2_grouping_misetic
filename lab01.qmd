@@ -1,6 +1,6 @@
 ---
 title: "Lab 01 - Grouping/Filtering"
-author: "Your Name Here"
+author: "Nikola Misetic"
 date: "`r format(Sys.time(), '%B %d, %Y')`"
 format:
   html:
@@ -48,7 +48,7 @@ wv_winred_contribs <- read_rds("data/lab_01.rds")
 
 **Task** Run the codeblock below to use glimpse to get a sense of the column names, types and sample data.
 **Q1** How many rows and columns does this dataframe have?
-**A1** 
+**A1** 13,382 rows and 24 columns
 
 ```{r}
 glimpse(wv_winred_contribs)
@@ -60,42 +60,44 @@ glimpse(wv_winred_contribs)
 **A2** 
 
 ```{r}
-
-
-
-
-
-
+wv_winred_contribs %>%
+  group_by(city) %>%
+  summarise(
+    total_contribs = n()
+  ) %>%
+  arrange(desc(total_contribs))
 ```
 **Q3** Which West Virginia city accounted for the fewest contributions? How many?
-**A3** 
+**A3** Dozens of cities with one contribution
 
 ```{r}
-
-
-
-
-
+wv_winred_contribs %>%
+  group_by(city) %>%
+  summarise(
+    total_contribs = n()
+  ) %>%
+  arrange(total_contribs)
 ```
 **Q4** What's your best educated guess to explain why the city identified in question 2 had more contributions compared to the cities identified in question 3? Hint: you won't find the answer in the data, you'll need to do some quick web research. You do not need to write any code for this question, so no codeblock is provided.  
-**A4** 
+**A4** Population- Martinsburg is the fastest growing city in this list and the lowest contributors are small cities
 
 **Q5** What recipient got the largest total amount of money? How many contributions did they receive and what was the average donation?
-**A5** 
+**A5** Save America Joint Fundraising Committee, with $66.972.89 from 2,448 contributions. The average was $27.36.
 
 ```{r}
-
-
-
-
-
-
+wv_winred_contribs %>%
+  group_by(memo_text) %>%
+  summarise(
+    total_contribs = n(),
+    total_amount = sum(amount),
+    average_amount = mean(amount
+    )
+  ) %>%
+  arrange(desc(total_amount))
 ```
 
 **Q6** What is that top recipient and what explains its popularity? Hint: this will require web research, you won't be able to answer this purely from the data set.  You do not need to write any code for this question, so no codeblock is provided.  
-**A6** 
-
-
+**A6** Save America JFC is the main fundraising organization for former President Donald Trump. It splits money between his PAC, Save America, and other organizations. Trump won 68% of the vote in West Virginia in 2020.
 
 **Q7**. Produce a summary table that has the following information for West Virginia as a whole (the whole state, not by city):
 * count of contributions
@@ -110,10 +112,16 @@ Store it as a variable object called `wv_summary` so that you can examine it wit
 **A7**. 
 
 ```{r}
+wv_summary <- wv_winred_contribs %>%
+   summarise(
+    count_contribs = n(),
+    total_amount = sum(amount),
+    mean_amount = mean(amount),
+    median_amount = median(amount),
+    min_amount = min(amount),
+    max_amount = max(amount)
+  ) %>%
+  arrange(desc(total_amount))
 
-
-
-
-
-
+wv_summary
 ```
